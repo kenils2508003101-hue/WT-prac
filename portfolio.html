@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kenil Vanjara — Portfolio</title>
+  <meta name="description" content="Kenil Vanjara — student developer. App development, Firebase backends, data structuring for ML, UI & flow design." />
+
+  <!-- Bootstrap CSS (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{--accent:#20c997;--bg:#071129;--muted:rgba(255,255,255,0.95)}
+    /* keep light-theme color the same — high contrast in dark theme */
+    @media (prefers-color-scheme: light){:root{--bg:#f7fbff;--muted:#243044}}
+    html,body{height:100%}
+    body{background:linear-gradient(180deg,rgba(32,201,151,0.03),transparent),var(--bg);color:var(--muted);font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;padding:2rem}
+    .card-ghost{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.05);backdrop-filter:blur(6px)}
+    /* avatar text: white for reliable contrast on the gradient */
+    .avatar{width:84px;height:84px;border-radius:18px;background:linear-gradient(135deg,#a78bfa,#60a5fa);display:grid;place-items:center;font-weight:800;color:#ffffff}
+    /* badges and muted text: increase visibility */
+    .skill-badge{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:999px;padding:.35rem .65rem;font-weight:600;color:rgba(255,255,255,0.92)}
+    .primary-gradient{background:linear-gradient(90deg,var(--accent),#7c3aed);color:#042f26;border:none}
+
+    /* Targeted dark-theme overrides for elements that were hard to read on the dark background */
+    @media (prefers-color-scheme: dark){
+      .text-muted { color: rgba(255,255,255,0.86) !important; }
+      .small.text-muted, small.text-muted { color: rgba(255,255,255,0.78) !important; }
+      .list-group-item .small.text-muted { color: rgba(255,255,255,0.74) !important; }
+      .btn-outline-light { color: rgba(255,255,255,0.95); border-color: rgba(255,255,255,0.12); }
+      footer { color: rgba(255,255,255,0.80); }
+    }
+    /* also respect Bootstrap theme toggle (data-bs-theme) */
+    :root[data-bs-theme="dark"] {
+      .text-muted { color: rgba(255,255,255,0.86) !important; }
+      .small.text-muted, small.text-muted { color: rgba(255,255,255,0.78) !important; }
+      .btn-outline-light { color: rgba(255,255,255,0.95); border-color: rgba(255,255,255,0.12); }
+    }
+
+    /* Strong, theme-agnostic overrides to ensure visible text on the dark background */
+    /* High-specificity + !important so changes appear immediately (also covers cached/local previews) */
+    .text-muted,
+    .nav-link.text-muted,
+    .btn-link.text-muted,
+    .small.text-muted,
+    small.text-muted {
+      color: rgba(255,255,255,0.95) !important;
+    }
+
+    .list-group-item .small.text-muted { color: rgba(255,255,255,0.86) !important; }
+
+    .btn-outline-light {
+      color: rgba(255,255,255,0.98) !important;
+      border-color: rgba(255,255,255,0.14) !important;
+      background-color: transparent !important;
+    }
+
+    /* Main content paragraphs — force pure white for maximum readability */
+    /* Targets article content and main section paragraphs only (avoids changing small/muted UI labels) */
+    article.card.card-ghost p,
+    section#about p,
+    section#work p,
+    section#contact p {
+      color: #ffffff !important;
+      opacity: 1 !important;
+    }
+
+    /* fallback for inline uses of var(--muted) */
+    [style*="color:var(--muted)"] { color: rgba(255,255,255,0.95) !important; }
+
+    @media (max-width:767.98px){body{padding:1rem}}
+  </style>
+</head>
+<body>
+  <div class="container-lg">
+    <!-- Navbar (Bootstrap component) -->
+    <nav class="navbar navbar-expand-md bg-transparent mb-4">
+      <div class="container-fluid p-0 align-items-center">
+        <a class="navbar-brand d-flex align-items-center gap-3 p-0" href="#">
+          <div class="avatar">KV</div>
+          <div>
+            <div class="h6 mb-0">Kenil Vanjara</div>
+            <div class="small text-muted">Student developer • India</div>
+          </div>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto mb-2 mb-md-0 align-items-md-center">
+            <li class="nav-item"><a class="nav-link text-muted" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link text-muted" href="#work">Work</a></li>
+            <li class="nav-item"><a class="nav-link text-muted" href="#projects">Projects</a></li>
+            <li class="nav-item"><a class="nav-link text-muted" href="#contact">Contact</a></li>
+            <li class="nav-item ms-3"><a class="btn btn-sm primary-gradient" href="#contact">Hire me</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="row g-4 align-items-start">
+      <!-- Hero / About (uses Card component) -->
+      <section id="about" class="col-12 col-lg-8">
+        <article class="card card-ghost p-4 h-100 shadow-sm">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <h2 class="h4 mb-1">Hi, I’m Kenil Vanjara <span aria-hidden>👋</span></h2>
+              <p class="text-muted mb-0">Student developer and tech enthusiast from India — building practical, user-focused applications.</p>
+            </div>
+            <div class="badge bg-success text-dark align-self-start">Open to internships</div>
+          </div>
+
+          <p>Hi, I’m Kenil Vanjara, a passionate student developer and tech enthusiast from India. I enjoy building practical, user-focused applications and exploring how technology can solve real-world problems efficiently.</p>
+
+          <p>I have hands-on experience in app development, Firebase-based backends, and data handling for machine learning projects. My work often focuses on turning unstructured data into structured formats, building college-level management systems, and designing solutions that are simple, scalable, and easy to use.</p>
+
+          <p>I’m always curious about how things work under the hood—whether it’s mobile app workflows, backend logic, or data pipelines. I believe in learning by building, experimenting, and improving continuously.</p>
+
+          <div class="d-flex flex-wrap gap-2 mt-3">
+            <a class="btn primary-gradient" href="#contact">Get in touch →</a>
+            <a class="btn btn-outline-light" href="#projects">See projects</a>
+            <a class="btn btn-link text-muted" href="mailto:kenil@example.com">✉️ Email</a>
+          </div>
+
+          <hr class="my-4">
+
+          <h3 class="h6">🚀 What I Do</h3>
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <span class="skill-badge">📱 App Development</span>
+            <span class="skill-badge">🔥 Firebase & Backend</span>
+            <span class="skill-badge">📊 Data Structuring</span>
+            <span class="skill-badge">🧠 Problem Solving</span>
+            <span class="skill-badge">🎨 UI & Flow Design</span>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12 col-md-6">
+              <h4 class="h6">🎯 My Goals</h4>
+              <ul class="lh-lg">
+                <li>To grow as a full-stack / mobile developer</li>
+                <li>To work on impactful projects that solve real problems</li>
+                <li>To gain industry experience through internships and collaborations</li>
+                <li>To continuously learn and adapt to new technologies</li>
+              </ul>
+            </div>
+            <div class="col-12 col-md-6">
+              <h4 class="h6">💡 Personal Traits</h4>
+              <ul class="lh-lg">
+                <li>Curious & detail-oriented</li>
+                <li>Quick learner</li>
+                <li>Strong problem-solving mindset</li>
+                <li>Dedicated to improving with every project</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Sidebar (cards, list-group) -->
+      <aside class="col-12 col-lg-4">
+        <div class="card card-ghost p-3 mb-3 shadow-sm">
+          <div class="d-flex gap-3 align-items-center">
+            <div class="avatar">KV</div>
+            <div>
+              <h3 class="h6 mb-0">Kenil Vanjara</h3>
+              <div class="text-muted small">Student developer — India</div>
+              <div class="mt-2"><span class="badge bg-light text-dark">Open to work</span> <small class="text-muted">• Remote & onsite</small></div>
+            </div>
+          </div>
+
+          <hr>
+          <div class="d-flex gap-2 flex-wrap">
+            <div class="flex-grow-1">
+              <div class="small text-muted">Apps</div>
+              <div class="fw-bold">6+ shipped</div>
+              <div class="small text-muted">college & personal</div>
+            </div>
+            <div class="flex-grow-1">
+              <div class="small text-muted">Backends</div>
+              <div class="fw-bold">Firebase</div>
+              <div class="small text-muted">auth, realtime, rules</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-ghost p-3 mb-3 shadow-sm">
+          <h4 class="h6">Selected projects</h4>
+          <div class="list-group list-group-flush mt-2" id="projects">
+            <div class="list-group-item bg-transparent border-0 p-2">
+              <div class="fw-semibold">College Management System</div>
+              <div class="small text-muted">Full-stack system for managing student data, attendance, and admin workflows.</div>
+            </div>
+            <div class="list-group-item bg-transparent border-0 p-2">
+              <div class="fw-semibold">Data Structuring Toolkit</div>
+              <div class="small text-muted">Tools & pipelines to convert raw data into ML-ready formats and labels.</div>
+            </div>
+            <div class="list-group-item bg-transparent border-0 p-2">
+              <div class="fw-semibold">Mobile Workflow App</div>
+              <div class="small text-muted">Cross-platform mobile app focusing on intuitive UX and offline-first sync.</div>
+            </div>
+            <div class="list-group-item bg-transparent border-0 p-2">
+              <div class="fw-semibold">Realtime Firebase Demo</div>
+              <div class="small text-muted">Auth, rules, and realtime data patterns for collaborative apps.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid gap-2">
+          <a class="btn btn-outline-light" href="#contact">Contact / Hire</a>
+          <a class="btn btn-link text-muted text-start" href="#projects">View more projects</a>
+        </div>
+      </aside>
+
+      <!-- Experience (cards, badges) -->
+      <section id="work" class="col-12">
+        <div class="card card-ghost p-4 shadow-sm">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h3 class="h6 mb-0">Experience & focus</h3>
+            <div class="text-muted small">App dev · Firebase · Data pipelines</div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12 col-md-8">
+              <p class="text-muted">I build practical applications and backend systems with a focus on maintainability and clear data flow. My projects emphasize simple, testable logic and user-friendly interfaces.</p>
+
+              <h4 class="h6">Tech & tools</h4>
+              <div class="d-flex gap-2 flex-wrap mt-2">
+                <span class="skill-badge">Flutter / React Native</span>
+                <span class="skill-badge">Firebase (Auth, Firestore, RTDB)</span>
+                <span class="skill-badge">Python / Node.js</span>
+                <span class="skill-badge">SQL / NoSQL</span>
+                <span class="skill-badge">Git & CI</span>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="p-3 bg-dark bg-opacity-10 rounded">
+                <div class="small text-muted">Looking for</div>
+                <div class="fw-bold">Internships & collaborations</div>
+                <div class="small text-muted mt-2">Open to short internships, mentorships, and project collaborations that help me learn and contribute.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact (form component) -->
+      <section id="contact" class="col-12">
+        <div class="card card-ghost p-4 d-flex flex-wrap gap-4 align-items-start">
+          <div class="flex-grow-1" style="min-width:260px">
+            <h3 class="h6 mb-1">Let's build something together</h3>
+            <p class="text-muted">Email, connect on GitHub/LinkedIn, or share a short brief — I'll respond within a few days.</p>
+
+            <div class="d-flex gap-2 mt-3">
+              <a class="btn primary-gradient" href="mailto:kenil@example.com">Email me</a>
+              <a class="btn btn-outline-light" href="#projects">See work</a>
+            </div>
+
+            <div class="mt-3 text-muted small">
+              <div>Quick contacts</div>
+              <div class="d-flex gap-3 mt-2">
+                <a href="#" class="text-decoration-none text-muted">🐙 GitHub</a>
+                <a href="#" class="text-decoration-none text-muted">💼 LinkedIn</a>
+                <a href="#" class="text-decoration-none text-muted">🐦 X</a>
+              </div>
+            </div>
+          </div>
+
+          <form class="p-3 bg-body-tertiary rounded" style="min-width:260px;max-width:460px;" onsubmit="event.preventDefault();alert('Replace this with your form endpoint or mailto handler');">
+            <div class="mb-2">
+              <label for="name" class="form-label small">Name</label>
+              <input id="name" name="name" class="form-control" required placeholder="Your name">
+            </div>
+            <div class="mb-2">
+              <label for="email" class="form-label small">Email</label>
+              <input id="email" name="email" type="email" class="form-control" required placeholder="you@domain.com">
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label small">Message</label>
+              <textarea id="message" name="message" class="form-control" rows="4" required placeholder="Short message or project brief"></textarea>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn primary-gradient" type="submit">Send message</button>
+              <a class="btn btn-outline-light" href="mailto:kenil@example.com">Or email</a>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="d-flex justify-content-between align-items-center mt-4 text-muted small">
+      <div>Made with ⚡ • <strong>Kenil Vanjara</strong></div>
+      <div>© <span id="year"></span></div>
+    </footer>
+  </div>
+
+  <!-- Bootstrap JS bundle (Popper included) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // theme toggle (Bootstrap data-bs-theme) — persists to localStorage
+    const themeToggle = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('site-theme');
+    if(saved) document.documentElement.dataset.bsTheme = saved;
+    themeToggle?.addEventListener('click', ()=>{
+      const next = document.documentElement.dataset.bsTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.bsTheme = next;
+      localStorage.setItem('site-theme', next);
+    });
+  </script>
+</body>
+</html>
