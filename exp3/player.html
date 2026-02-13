@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Player Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html"><i class="fas fa-cricket"></i> Cricket World</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#top-cricketers">Top Cricketers</a></li>
+                <li class="nav-item"><a class="nav-link" href="#player-stats">Statistics</a></li>
+                <li class="nav-item"><a class="nav-link" href="#career-highlights">Career Highlights</a></li>
+                <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <div id="top-cricketers" class="player-header mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-4 text-center">
+                <img id="playerImage" src="" class="img-fluid rounded-circle" alt="Player Image">
+            </div>
+            <div class="col-md-8">
+                <h2 id="playerName" class="text-primary mb-2"></h2>
+                <p id="playerInfo" class="lead mb-3 text-muted"></p>
+                <div id="playerBio" class="text-muted small"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Player Statistics -->
+    <div id="player-stats" class="section-title mb-4">
+        <h3>Career Statistics</h3>
+        <div id="statsContent" class="row g-3"></div>
+    </div>
+
+    <!-- Career Highlights -->
+    <div id="career-highlights" class="section-title mb-4 mt-5">
+        <h3>Career Highlights</h3>
+        <div id="highlightsContent" class="row g-3"></div>
+    </div>
+
+    <!-- Achievements -->
+    <div id="achievements" class="section-title mb-4 mt-5">
+        <h3>Major Achievements</h3>
+        <div id="achievementsContent" class="row g-3"></div>
+    </div>
+</div>
+
+<!-- Minimal Footer -->
+<footer class="bg-dark text-white mt-5 pt-4">
+    <div class="container text-center py-3">
+        <p class="text-muted mb-0">Made by a small group of cricket fans. Thanks for visiting!</p>
+    </div>
+</footer>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+
+    const playerData = {
+        "Virat Kohli": {
+            info: "Virat Kohli is one of the greatest batsmen in modern cricket. Former Indian captain known for aggressive batting and exceptional consistency.",
+            image: "data:image/jpeg;base64,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",
+            bio: "<strong>Playing Style:</strong> Right-hand bat, Right-arm medium. <br><strong>Jersey No:</strong> 18 (International) | <strong>Role:</strong> Batsman & Captain",
+            stats: [
+                {label: "ODI Runs", value: "13,000+"},
+                {label: "Test Runs", value: "8,000+"},
+                {label: "T20 Runs", value: "4,000+"},
+                {label: "Centuries", value: "46"}
+            ],
+            highlights: [
+                "2011 Cricket World Cup Winner",
+                "Led India to numerous Test series victories",
+                "Consistent performer across all formats",
+                "Fastest to 50 ODI centuries"
+            ],
+            achievements: [
+                "ICC ODI Player of the Year (2012)",
+                "Wisden Cricketer of the Year (2016)",
+                "Multiple Test & ODI centuries",
+                "Led India to World Cup success"
+            ]
+        },
+        "MS Dhoni": {
+            info: "MS Dhoni is one of India's most successful captains. He led India to T20 World Cup, ODI World Cup and Champions Trophy victories.",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT14QuHoBCqATiF-9zNT-W-4xveb7YW7I6rJphHRCMFirE783RZlgZAAu70GTkKzeaC7dCeJ2s&s=10",
+            bio: "<strong>Playing Style:</strong> Right-hand bat, Right-arm medium. <br><strong>Jersey No:</strong> 7 (International) | <strong>Role:</strong> Wicket-keeper & Captain",
+            stats: [
+                {label: "ODI Runs", value: "10,773"},
+                {label: "Test Runs", value: "4,876"},
+                {label: "T20 Runs", value: "1,617"},
+                {label: "Average", value: "50.57"}
+            ],
+            highlights: [
+                "2011 ODI World Cup Captain",
+                "2007 T20 World Cup Champion",
+                "2013 Champions Trophy Winner",
+                "Legendary finish to T20 World Cup"
+            ],
+            achievements: [
+                "ICC World Cup Champion (2011)",
+                "World T20 Champion (2007)",
+                "Champions Trophy Winner (2013)",
+                "Named ICC Test Player of the Year"
+            ]
+        },
+        "Rohit Sharma": {
+            info: "Rohit Sharma is known as the Hitman of cricket. He holds the record for highest individual ODI score and is an exceptional opening batsman.",
+            image: "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcQe76k6Rwqz6rZLKuYpT0asVmZKsiM9JBJxGAcpQ_u7YMcGKYYIn3tPT_aw__QbwlfIoAZfFw0i78xiH5bJyGF-wCM9lcClpNrOTX1uozUKgg&s=19",
+            bio: "<strong>Playing Style:</strong> Right-hand bat, Right-arm medium. <br><strong>Jersey No:</strong> 45 (International) | <strong>Role:</strong> Opening Batsman",
+            stats: [
+                {label: "ODI Runs", value: "11,000+"},
+                {label: "Test Runs", value: "4,000+"},
+                {label: "T20 Runs", value: "4,000+"},
+                {label: "Highest ODI Score", value: "264*"}
+            ],
+            highlights: [
+                "Highest individual ODI score (264)",
+                "T20 World Cup Champion (2024)",
+                "Exceptional opening partnerships",
+                "Consistent match-winner in T20"
+            ],
+            achievements: [
+                "T20 World Cup Champion (2024)",
+                "Multiple Test centuries",
+                "IPL Captain & Leading run scorer",
+                "Record ODI individual score"
+            ]
+        }
+    };
+
+    // Use Wikimedia Commons photo for Virat Kohli (CC BY 3.0 — attribution: Bollywood Hungama)
+    playerData["Virat Kohli"].image = "https://upload.wikimedia.org/wikipedia/commons/e/e9/Virat_Kohli_June_2016_%28cropped%29.jpg";
+
+    function displayPlayerData() {
+        const player = playerData[name];
+        if (!player) {
+            document.getElementById("playerName").innerText = "Player not found";
+            return;
+        }
+
+        // Main Info
+        document.getElementById("playerName").innerText = name;
+        document.getElementById("playerInfo").innerText = player.info;
+        document.getElementById("playerBio").innerHTML = player.bio;
+        document.getElementById("playerImage").src = player.image;
+
+        // Stats
+        let statsHTML = "";
+        player.stats.forEach(stat => {
+            statsHTML += `<div class="col-md-3"><div class="card text-center p-3 bg-light border-0"><h5 class="text-primary">${stat.value}</h5><p class="text-muted mb-0">${stat.label}</p></div></div>`;
+        });
+        document.getElementById("statsContent").innerHTML = statsHTML;
+
+        // Highlights
+        let highlightsHTML = "";
+        player.highlights.forEach(highlight => {
+            highlightsHTML += `<div class="col-md-6"><div class="card border-left border-warning p-3"><i class="fas fa-check-circle text-success me-2"></i>${highlight}</div></div>`;
+        });
+        document.getElementById("highlightsContent").innerHTML = highlightsHTML;
+
+        // Achievements
+        let achievementsHTML = "";
+        player.achievements.forEach(achievement => {
+            achievementsHTML += `<div class="col-md-6"><div class="card border-left border-success p-3"><i class="fas fa-medal text-warning me-2"></i>${achievement}</div></div>`;
+        });
+        document.getElementById("achievementsContent").innerHTML = achievementsHTML;
+    }
+
+    displayPlayerData();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
